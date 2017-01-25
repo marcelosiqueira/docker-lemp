@@ -1,0 +1,52 @@
+#
+# PHP-FPM + Nginx + MariaDB + PHPMyAdmin Docker-Compose
+#
+# Written by:
+#   Marcelo Siqueira <eu@marcelosiqueira.com.br>
+#
+
+version: '2'
+services:
+  nginx:
+    container_name: my-nginx
+    image: nginx:latest
+    volumes:
+      - ./public:/var/www/html:rw
+      - ./src/logs:/var/www/logs:rw
+      - ./src/default.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - 80:80/tcp
+      - 443:443/tcp
+  php:
+    container_name: my-php
+    build: ./src/php
+    image: php:fpm
+    volumes:
+      - ./public:/var/www/html:rw
+  mysql:
+    container_name: my-mysql
+    image: mariadb:latest
+    volumes:
+      - ./src/mysql:/var/lib/mysql:rw
+    ports:
+      - 3306:3306/tcp
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: mydb
+  phpmyadmin:
+    container_name: my-phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    environment:
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: 123
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: 123
+    restart: always
+    ports:
+      - 81:80/tcp
+    volumes:
+      - ./src/sessions:/sessions
+  memcached:
+    container_name: my-memcached
+    image: memcached
