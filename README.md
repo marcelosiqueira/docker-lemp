@@ -9,8 +9,8 @@ PHP-FPM 7 + Nginx + MariaDB + Memcached + PHPMyAdmin Docker-Compose
 Documentation
 -------------
 * [Docker](https://docs.docker.com/)
-* [Instalatiom](https://docs.docker.com/engine/installation/)
-* [Docker-Composer Instalatiom](https://docs.docker.com/compose/install/)
+* [Instalation](https://docs.docker.com/engine/installation/)
+* [Docker-Composer Instalation](https://docs.docker.com/compose/install/)
 
 ### Maintainers:
 * Marcelo Siqueira          eu@marcelosiqueira.com.br
